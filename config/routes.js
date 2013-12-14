@@ -60,16 +60,25 @@ module.exports = function(app, passport, auth) {
     //Finish with setting up the userId param
     app.param('userId', users.user);
 
-    //Article Routes
-    var articles = require('../app/controllers/articles');
-    app.get('/articles', articles.all);
-    app.post('/articles', auth.requiresLogin, articles.create);
-    app.get('/articles/:articleId', articles.show);
-    app.put('/articles/:articleId', auth.requiresLogin, auth.article.hasAuthorization, articles.update);
-    app.del('/articles/:articleId', auth.requiresLogin, auth.article.hasAuthorization, articles.destroy);
+    //Jogas Routes
+    var jogasok = require('../app/controllers/jogasok');
+    app.get('/jogasok', jogasok.all);
+    app.post('/jogasok', auth.requiresLogin, jogasok.create);
+    app.get('/jogasok/:jogasId', auth.requiresLogin, jogasok.show);
+    app.post('/jogasok/:jogasId', auth.requiresLogin, jogasok.update);
+    app.del('/jogasok/:jogasId', auth.requiresLogin, jogasok.destroy);
+    app.post('/jogasok/:jogasId/ujBerlet', auth.requiresLogin, jogasok.ujBerlet);
+    app.param('jogasId', jogasok.jogas);
 
-    //Finish with setting up the articleId param
-    app.param('articleId', articles.article);
+    // Alkalmak Routes
+    var alkalmak = require('../app/controllers/alkalmak');
+    app.get('/alkalmak', alkalmak.all);
+    app.post('/alkalmak', auth.requiresLogin, alkalmak.create);
+    app.get('/alkalmak/:alkalomId', auth.requiresLogin, alkalmak.show);
+    app.post('/alkalmak/:alkalomId', auth.requiresLogin, alkalmak.update);
+    app.del('/alkalmak/:alkalomId', auth.requiresLogin, alkalmak.destroy);
+    app.post('/alkalmak/:alkalomId/addResztvevo', auth.requiresLogin, alkalmak.addResztvevo);
+    app.param('alkalomId', alkalmak.alkalom);
 
     //Home route
     var index = require('../app/controllers/index');
