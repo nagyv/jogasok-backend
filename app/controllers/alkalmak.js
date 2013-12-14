@@ -73,7 +73,7 @@ exports.show = function(req, res) {
  * List of Jogasok
  */
 exports.all = function(req, res) {
-    Alkalom.find().sort('-created').limit(10).exec(function(err, alkalmak) {
+    Alkalom.find().sort('-created').limit(10).select('tartja segiti location date').exec(function(err, alkalmak) {
         if (err) {
             res.jsonp({error: err.errors});
         } else {
