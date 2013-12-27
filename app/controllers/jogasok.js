@@ -73,7 +73,7 @@ exports.show = function(req, res) {
  * List of Jogasok
  */
 exports.all = function(req, res) {
-    Jogas.find().sort('-created').exec(function(err, jogasok) {
+    Jogas.find().populate('alkalmak').sort('-created').exec(function(err, jogasok) {
         if (err) {
             res.jsonp({errors: err.errors});
         } else {

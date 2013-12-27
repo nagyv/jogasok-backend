@@ -37,8 +37,12 @@ AlkalomSchema.path('tartja').validate(function(tartja) {
 }, 'Jogatarto cannot be blank');
 
 AlkalomSchema.methods.addResztvevo = function(resztvevo, cb) {
+    var that = this;
     this.resztvevok.push(resztvevo);
-    return this.save(cb);
+    return resztvevo.addAlkalom(this, function(jogas) {
+        that.save(cb);
+    });
+    // return this.save(cb);
 };
 
 mongoose.model('Alkalom', AlkalomSchema);

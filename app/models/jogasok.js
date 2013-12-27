@@ -8,10 +8,10 @@ var BerletSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    start_date: {
+    startDate: {
         type: Date
     },
-    end_date: {
+    endDate: {
         type: Date
     },
     alkalmak: {
@@ -22,7 +22,7 @@ var BerletSchema = new Schema({
     felhasznalva: [Date]
 });
 BerletSchema.pre('save' , function(next) {
-    if (this.start_date >= this.end_date) {
+    if (this.startDate >= this.endDate) {
         next(new Error('Start date should be before end date.'));
     } else {
         next();
@@ -32,7 +32,7 @@ BerletSchema.methods.isValid = function() {
     var now = Date.now();
     if (this.alkalmak > 0 && this.felhasznalva.length >= this.alkalmak) {
         return false;
-    } else if (this.alkalmak === 0 && (this.start_date > now || this.end_date < now)) {
+    } else if (this.alkalmak === 0 && (this.startDate > now || this.endDate < now)) {
         return false;
     } else {
         return true;
@@ -65,7 +65,11 @@ var JogasSchema = new Schema({
     email: {
         type: String
     },
-    berletek: [BerletSchema]
+    berletek: [BerletSchema],
+    alkalmak: [{
+        type: Schema.ObjectId,
+        ref: 'Alkalom'
+    }]
 });
 
 /**
@@ -85,6 +89,10 @@ JogasSchema.virtual('berlet').get(function(){
     }
     return berlet;
 });
+JogasSchema.methods.addAlkalom = function(alkalom, cb) {
+    this.alkalmak.push(alkalom);
+    return this.save(cb);
+}
 
 mongoose.model('Berlet', BerletSchema);
 mongoose.model('Jogas', JogasSchema);
