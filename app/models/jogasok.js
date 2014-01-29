@@ -19,7 +19,10 @@ var BerletSchema = new Schema({
         min: 0,
         default: 0
     },
-    felhasznalva: [Date]
+    felhasznalva: [{
+        type: Schema.ObjectId,
+        ref: 'Alkalom'
+    }]
 });
 BerletSchema.pre('save' , function(next) {
     if (this.startDate >= this.endDate) {
@@ -38,9 +41,9 @@ BerletSchema.methods.isValid = function() {
         return true;
     }
 };
-BerletSchema.methods.hasznal = function(date, cb) {
+BerletSchema.methods.hasznal = function(alkalom, cb) {
     if (this.isValid()) {
-        this.felhasznalva.push(date);
+        this.felhasznalva.push(alkalom);
         if(typeof this.ownerDocument == 'undefined') {
             this.save(cb);
         } else {
@@ -63,6 +66,9 @@ var JogasSchema = new Schema({
         type: String
     },
     email: {
+        type: String
+    },
+    city: {
         type: String
     },
     berletek: [BerletSchema],

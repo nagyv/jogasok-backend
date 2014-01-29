@@ -88,11 +88,11 @@ exports.addResztvevo = function(req, res) {
             if(err) {
                 res.jsonp({error: err.errors});
             } else {
+                if(jogas.berlet) {
+                    jogas.berlet.hasznal(alkalom, function(err, berlet) { });
+                }
                 res.jsonp(alkalom);
             }
         });
-        if(jogas.berlet) {
-            jogas.berlet.hasznal(req.alkalom.date, function(err, berlet) { });
-        }
     });
 };
