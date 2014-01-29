@@ -2,9 +2,9 @@ extends layouts/default
 
 block content
     - if (user != 'null'){
-        .col-sx-12(ui-view='')
+        .col-sx-12.col-md-12(ui-view='')
     - } else {
-        .col-sx-12
+        .col-sx-12.col-md-12
             a(href="/signin") Sign in
     - }
 

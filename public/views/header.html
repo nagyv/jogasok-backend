@@ -5,19 +5,19 @@
   <ul class="nav navbar-nav" ng-show="user">
     <li ng-class="{ active: $state.includes('alkalom') }">
       <a ui-sref="alkalom">
-        <i class="icon-home"></i>
+        <i class="fa fa-bars"></i>
         Alkalmak
       </a>
     </li>
     <li ng-class="{ active: $state.includes('jogasok') }">
       <a ui-sref="jogasok">
-        <i class="icon-info-sign"></i>
+        <i class="fa fa-users"></i>
         Jógázók
       </a>
     </li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
-    <li ng-hide="user"><a href="/signin">Sign in</a></li>
-    <li ng-show="user"><a href="/signout">Sign out</a></li>
+    <li ng-hide="user"><a href="/signin"><i class="fa fa-user"></i>Sign in</a></li>
+    <li ng-show="user"><a href="/signout"><i class="fa fa-user"></i>Sign out</a></li>
   </ul>
 </div>
