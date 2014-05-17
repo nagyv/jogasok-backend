@@ -7,7 +7,7 @@ var AlkalomSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    date: {
+    starts: {
         type: Date
     },
     location: {
@@ -28,8 +28,8 @@ var AlkalomSchema = new Schema({
 /**
  * Validations
  */
-AlkalomSchema.path('date').validate(function(date) {
-    return date.length;
+AlkalomSchema.path('starts').validate(function(starts) {
+    return starts.length;
 }, 'Date cannot be blank');
 
 AlkalomSchema.path('tartja').validate(function(tartja) {
